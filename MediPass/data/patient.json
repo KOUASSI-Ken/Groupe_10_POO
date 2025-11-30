@@ -1,0 +1,67 @@
+[ {
+  "id" : 1,
+  "nom" : "Stark",
+  "prenom" : "Tony",
+  "dateNaissance" : "1970-05-29",
+  "sexe" : "M",
+  "dossier" : {
+    "consultations" : [ {
+      "date" : "2025-11-29",
+      "motif" : "Douleur au coeur",
+      "diagnostic" : "Arc Reactor instable",
+      "medecin" : "Dr. Strange",
+      "idConsultation" : 101
+    } ],
+    "antecedents" : [ ],
+    "prescriptions" : [ ],
+    "examens" : [ ],
+    "idDossier" : 0
+  }
+}, {
+  "id" : 2,
+  "nom" : "Wayne",
+  "prenom" : "Bruce",
+  "dateNaissance" : "1980-02-19",
+  "sexe" : "M",
+  "dossier" : {
+    "consultations" : [ ],
+    "antecedents" : [ ],
+    "prescriptions" : [ {
+      "nomProduit" : "Vicodin",
+      "posologie" : "1 comprimé toutes les 4h",
+      "date" : "2025-11-29",
+      "idPrescription" : 0
+    } ],
+    "examens" : [ {
+      "nom" : "IRM Cérébrale",
+      "type" : "Imagerie",
+      "heure" : "14:00:00",
+      "date" : "2025-11-29",
+      "resultat" : "En attente",
+      "effectue" : false,
+      "idExamen" : 500
+    } ],
+    "idDossier" : 0
+  }
+}, {
+  "id" : 3,
+  "nom" : "Rogers",
+  "prenom" : "Steve",
+  "dateNaissance" : "1920-07-04",
+  "sexe" : "M",
+  "dossier" : {
+    "consultations" : [ ],
+    "antecedents" : [ ],
+    "prescriptions" : [ ],
+    "examens" : [ {
+      "nom" : "AZERTY",
+      "type" : "Radio",
+      "heure" : "14:44:10.8468944",
+      "date" : "2025-11-29",
+      "resultat" : "En attente",
+      "effectue" : false,
+      "idExamen" : 665
+    } ],
+    "idDossier" : 0
+  }
+} ]

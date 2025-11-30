@@ -1,0 +1,20 @@
+[ {
+  "nom" : "Strange",
+  "prenom" : "Stephen",
+  "age" : 45,
+  "id" : 1,
+  "specialite" : "Neurochirurgien",
+  "role" : "Médecin - Neurochirurgien"
+}, {
+  "nom" : "Joy",
+  "prenom" : "Nurse",
+  "age" : 28,
+  "id" : 2,
+  "role" : "Infirmier(ère)"
+}, {
+  "nom" : "White",
+  "prenom" : "Walter",
+  "age" : 50,
+  "id" : 3,
+  "role" : "Pharmacien(ne)"
+} ]
