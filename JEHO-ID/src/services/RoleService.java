@@ -15,9 +15,19 @@ public class RoleService {
     }
     
     private void initialiserRolesParDefaut() {
-        // Rôle Administrateur complet
-        Set<Permission> permissionsAdmin = EnumSet.allOf(Permission.class);
-        Role admin = new Role("ADMINISTRATEUR", "Accès complet à toutes les fonctionnalités", permissionsAdmin);
+        // Rôle Administrateur - permissions administratives uniquement
+        Set<Permission> permissionsAdmin = EnumSet.of(
+            Permission.LIRE_PATIENT,  // Lecture seule pour consultation
+            Permission.GERER_UTILISATEURS,
+            Permission.GERER_DROITS,
+            Permission.VOIR_STATISTIQUES,
+            Permission.EXPORTER_DONNEES,
+            Permission.IMPORTER_DONNEES,
+            Permission.VOIR_PLANNING,
+            Permission.GERER_PLANNING,
+            Permission.GERER_RENDEZ_VOUS
+        );
+        Role admin = new Role("ADMINISTRATEUR", "Gestion du système et des utilisateurs", permissionsAdmin);
         roles.put("ADMINISTRATEUR", admin);
         
         // Rôle Médecin
