@@ -15,6 +15,6 @@ public class Medecin extends ProfessionnelSante {
 
     @Override
     public String getRole() {
-        return "Médecin" + (specialite != null ? " - " + specialite : "");
+        return "medecin";
     }
 }

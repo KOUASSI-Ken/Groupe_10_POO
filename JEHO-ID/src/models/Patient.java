@@ -61,6 +61,12 @@ public class Patient {
             this.sexe = sexe.toUpperCase();
         }
     }
+    public void setAge(int age) {
+        // Met à jour la date de naissance en fonction de l'âge fourni
+        if (age > 0 && age <= 120) {
+            this.dateNaissance = LocalDate.now().minusYears(age);
+        }
+    }
 
     @Override
     public String toString() {

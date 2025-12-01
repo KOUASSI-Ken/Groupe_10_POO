@@ -17,6 +17,10 @@ public class Main {
         PrescriptionService prescriptionService = new PrescriptionService();
         ExamenService examenService = new ExamenService();
         AntecedentService antecedentService = new AntecedentService();
+        RendezVousService rendezVousService = new RendezVousService();
+        EmploiDuTempsService emploiDuTempsService = new EmploiDuTempsService();
+        CSVService csvService = new CSVService();
+        RoleService roleService = new RoleService();
 
         DossierService dossierService = new DossierService(
                 consultationService,
@@ -69,7 +73,7 @@ public class Main {
         switch (role) {
 
             case "medecin":
-                new MenuMedecin((Medecin) user, patientService, dossierService, consultationService).afficherMenu();
+                new MenuMedecin((Medecin) user, patientService, dossierService, consultationService, rendezVousService).afficherMenu();
                 break;
 
             case "infirmier":
@@ -81,12 +85,8 @@ public class Main {
                 break;
 
             case "admin":
-            case "administrateur":
-                new MenuAdministrateur(
-                        administrateurService,
-                        professionnelService,
-                        statistiqueService
-                ).afficherMenuAdmin();
+                new MenuAdministrateur((Administrateur) user, professionnelService, administrateurService, 
+                    statistiqueService, patientService, emploiDuTempsService, csvService, roleService).afficherMenuAdmin();
                 break;
 
             default:

@@ -35,14 +35,17 @@ public class MenuCreationUtilisateur {
         System.out.print("Choix : ");
         int type = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Spécialité : ");
-        String specialite = scanner.nextLine();
+        String specialite = "";
+        if (type == 1) {
+            System.out.print("Spécialité : ");
+            specialite = scanner.nextLine();
+        }
 
         ProfessionnelSante pro = null;
         switch (type) {
             case 1 -> pro = new Medecin(nom, prenom, age, id, specialite);
-            case 2 -> pro = new Infirmier(nom, prenom, age, id, specialite);
-            case 3 -> pro = new Pharmacien(nom, prenom, age, id, specialite);
+            case 2 -> pro = new Infirmier(nom, prenom, age, id, "infirmier");
+            case 3 -> pro = new Pharmacien(nom, prenom, age, id, "pharmacien");
             default -> {
                 System.out.println("❌ Type invalide !");
                 return;

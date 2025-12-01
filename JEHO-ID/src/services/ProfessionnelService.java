@@ -49,6 +49,11 @@ public class ProfessionnelService {
     }
 
     // Obtenir tous les professionnels
+    public List<ProfessionnelSante> getTousLesProfessionnels() {
+        return new ArrayList<>(professionnels);
+    }
+
+    // Obtenir le nombre de professionnels
     public List<ProfessionnelSante> getTousProfessionnels() {
         return new ArrayList<>(professionnels);
     }
@@ -81,5 +86,25 @@ public class ProfessionnelService {
             }
         }
         return medecins;
+    }
+    
+    public List<Infirmier> getTousInfirmiers() {
+        List<Infirmier> infirmiers = new ArrayList<>();
+        for (ProfessionnelSante p : professionnels) {
+            if (p instanceof Infirmier) {
+                infirmiers.add((Infirmier) p);
+            }
+        }
+        return infirmiers;
+    }
+    
+    public List<Pharmacien> getTousPharmaciens() {
+        List<Pharmacien> pharmaciens = new ArrayList<>();
+        for (ProfessionnelSante p : professionnels) {
+            if (p instanceof Pharmacien) {
+                pharmaciens.add((Pharmacien) p);
+            }
+        }
+        return pharmaciens;
     }
 }

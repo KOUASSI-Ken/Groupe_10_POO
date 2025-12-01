@@ -6,7 +6,7 @@ import models.Consultation;
 import services.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class MenuMedecin {
@@ -15,16 +15,19 @@ public class MenuMedecin {
     private final PatientService patientService;
     private final DossierService dossierService;
     private final ConsultationService consultationService;
+    private final RendezVousService rendezVousService;
     private final Scanner scanner = new Scanner(System.in);
 
     public MenuMedecin(Medecin medecin,
                        PatientService patientService,
                        DossierService dossierService,
-                       ConsultationService consultationService) {
+                       ConsultationService consultationService,
+                       RendezVousService rendezVousService) {
         this.medecin = medecin;
         this.patientService = patientService;
         this.dossierService = dossierService;
         this.consultationService = consultationService;
+        this.rendezVousService = rendezVousService;
     }
 
     // ============================
@@ -35,16 +38,40 @@ public class MenuMedecin {
 
         while (actif) {
             System.out.println("\n===== MENU MÉDECIN =====");
-            System.out.println("1. Voir mes rendez-vous");
-            System.out.println("2. Accéder au dossier médical d'un patient");
+            System.out.println("1. Gestion des rendez-vous");
+            System.out.println("2. Gestion complète des patients");
+            System.out.println("3. Accéder au dossier médical d'un patient");
+            System.out.println("4. Ajouter une consultation");
             System.out.println("0. Se déconnecter");
             System.out.print("Choix : ");
 
             String choix = scanner.nextLine();
 
             switch (choix) {
-                case "1" -> afficherRendezVous();
-                case "2" -> ouvrirDossierPatient();
+                case "1" -> {
+                    MenuProgrammationConsultations menuRdv = new MenuProgrammationConsultations(
+                        patientService, rendezVousService, medecin);
+                    menuRdv.afficherMenu();
+                }
+                case "2" -> {
+                    MenuGestionCompletePatient menuPatients = new MenuGestionCompletePatient(patientService);
+                    menuPatients.afficherMenu();
+                }
+                case "3" -> ouvrirDossierPatient();
+                case "4" -> {
+                    System.out.print("ID du patient : ");
+                    try {
+                        int idPatient = Integer.parseInt(scanner.nextLine());
+                        Patient patient = patientService.rechercherPatient(idPatient);
+                        if (patient != null) {
+                            ajouterConsultation(patient);
+                        } else {
+                            System.out.println("❌ Patient non trouvé.");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("❌ ID invalide.");
+                    }
+                }
                 case "0" -> {
                     actif = false;
                     System.out.println("✅ Déconnexion réussie.");
@@ -53,28 +80,6 @@ public class MenuMedecin {
             }
         }
     }
-
-    // ============================
-    // AFFICHER RDV MEDECIN
-    // ============================
-    private void afficherRendezVous() {
-        System.out.println("\n--- MES RENDEZ-VOUS ---");
-        boolean trouve = false;
-
-        for (Patient p : patientService.getTousLesPatients()) {
-            for (Consultation c : p.getDossier().getConsultations()) {
-                if (c.getMedecin().equals(medecin)) {
-                    System.out.println("🧑 Patient : " + p.getNom()
-                            + " | Date : " + c.getDate()
-                            + " | Motif : " + c.getMotif());
-                    trouve = true;
-                }
-            }
-        }
-
-        if (!trouve) System.out.println("Aucun rendez-vous enregistré.");
-    }
-
 
     // ============================
     // ACCES DOSSIER PATIENT
@@ -123,7 +128,6 @@ public class MenuMedecin {
         }
     }
 
-
     // ============================
     // AJOUT CONSULTATION
     // ============================
@@ -136,10 +140,10 @@ public class MenuMedecin {
             String diagnostic = scanner.nextLine();
 
             Consultation consultation = new Consultation(
-                    LocalDate.now(),
+                    LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     motif,
                     diagnostic,
-                    medecin
+                    medecin.getNom() + " " + medecin.getPrenom()
             );
 
             consultationService.ajouterConsultation(patient, consultation);
@@ -148,7 +152,6 @@ public class MenuMedecin {
             System.out.println("❌ Erreur lors de l'ajout.");
         }
     }
-
 
     // ============================
     // MODIFICATION INFOS PATIENT
@@ -175,7 +178,6 @@ public class MenuMedecin {
 
         System.out.println("✅ Informations mises à jour.");
     }
-
 
     // ============================
     // SUPPRESSION DOSSIER
